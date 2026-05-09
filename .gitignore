@@ -1,0 +1,120 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv
+env.bak/
+venv.bak/
+virtualenv/
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+.project
+.pydevproject
+.settings/
+*.sublime-project
+*.sublime-workspace
+
+# Testing and coverage
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+htmlcov/
+coverage_html_report/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.rdb
+dump.rdb
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Docker
+.docker/
+docker-compose.override.yml
+
+# Node
+node_modules/
+npm-debug.log
+
+# Misc
+.tmp/
+tmp/
+temp/
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+.env.example
+
+# Local development
+local_settings.py
+*.pem
+*.key
+
+# IDE specific
+.idea/*
+!.idea/runConfigurations
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# OS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Project-specific
+data/
+backup/
+*.tar.gz
+*.zip
