@@ -8,7 +8,6 @@ startup_complete = False
 
 @health_bp.route("/startup")
 def startup():
-    global startup_complete
     return jsonify(status="UP" if startup_complete else "DOWN"), 200 if startup_complete else 503
 
 @health_bp.route("/readiness")
