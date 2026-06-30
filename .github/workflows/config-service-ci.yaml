@@ -1,0 +1,35 @@
+name: config service CI
+on:
+  push:
+    branches:
+      - main
+# Only one deployment runs at a time; cancels any in-progress run on new push  
+concurrency:
+  group: production-deployment
+  cancel-in-progress: true
+  
+jobs:
+  sast:
+    name: Security Analysis (Static Application Security Testing)
+    uses: https://github.com/Rahul-Bristlecone/user-account-service.git/.github/workflows/sast.yaml
+    with:
+      target-environment: production
+    secrets: inherit
+  
+  ci:
+    name: Build and Test
+    needs: sast
+    uses: ./.github/workflows/reusable-ci.yaml
+    with:
+      service-name: config-service
+      docker-repo: daemons
+      target-environment: production
+    secrets: inherit
+
+  zap:
+    name: OWASP ZAP Scan
+    needs: ci
+    uses: https://github.com/Rahul-Bristlecone/user-account-service.git/.github/workflows/zap.yaml
+    with:
+      target-url: https://marry-fifty-rocky.ngrok-free.dev
+    secrets: inherit
