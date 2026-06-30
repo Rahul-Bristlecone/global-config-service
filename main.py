@@ -8,11 +8,11 @@ from flask_jwt_extended import JWTManager
 from flask_smorest import Api
 from flask_cors import CORS
 
-from config.extentions.db import db
+from config_service.extentions.db import db
 
 # Import all models to register them with SQLAlchemy
-from config.models.global_config_model import GlobalConfigModel
-from config.resources.global_config import blp as GlobalConfigBp
+from config_service.models.global_config_model import GlobalConfigModel
+from config_service.resources.global_config import blp as GlobalConfigBp
 
 # This is called factory pattern
 
