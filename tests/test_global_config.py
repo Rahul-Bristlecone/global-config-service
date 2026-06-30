@@ -58,7 +58,7 @@ class GlobalConfigTestCase(unittest.TestCase):
             "Content-Type": "application/json"
         }
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_create_global_config(self, mock_redis):
         """Test POST /glbconfig to create new global config."""
         mock_redis.get.return_value = json.dumps({
@@ -90,7 +90,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["ALLOWHANDPICK"], 1)
         self.assertEqual(data["INVGENMETHOD"], "AUTO")
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_update_existing_global_config(self, mock_redis):
         """Test POST /glbconfig to update existing config."""
         token = self._create_auth_token(self.user_id)
@@ -126,7 +126,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["ALLOWHANDPICK"], 1)
         self.assertEqual(data["DAYSTOSHOW"], 30)
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_global_config(self, mock_redis):
         """Test GET /glbconfig to retrieve config."""
         token = self._create_auth_token(self.user_id)
@@ -165,7 +165,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["BACKUPAFTERSHUTDOWN"], 1)
         self.assertEqual(data["BACKUPPROGRAM"], "BackupTool")
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_global_config_not_found(self, mock_redis):
         """Test GET /glbconfig returns 404 when config doesn't exist."""
         token = self._create_auth_token(self.user_id)
@@ -195,7 +195,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         # JWT required should reject
         self.assertEqual(response.status_code, 401)
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_invalid_session(self, mock_redis):
         """Test POST /glbconfig with invalid session in Redis."""
         token = self._create_auth_token(self.user_id)
@@ -216,7 +216,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("expired", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_mismatched_token(self, mock_redis):
         """Test POST /glbconfig with token mismatch."""
         token = self._create_auth_token(self.user_id)
@@ -239,7 +239,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("expired", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_boolean_field_validation(self, mock_redis):
         """Test POST /glbconfig with valid boolean fields."""
         token = self._create_auth_token(self.user_id)
@@ -275,7 +275,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["CLEARNEWORDFLGONCMD"], 1)
         self.assertEqual(data["BACKUPAFTERSHUTDOWN"], 1)
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_string_fields(self, mock_redis):
         """Test POST /glbconfig with string fields."""
         token = self._create_auth_token(self.user_id)
@@ -308,7 +308,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["EXTDLLNAME"], "ext_orders.dll")
         self.assertEqual(data["BACKUPPROGRAM"], "BackupTool")
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_new_order_flags(self, mock_redis):
         """Test POST /glbconfig with new order flag fields."""
         token = self._create_auth_token(self.user_id)
@@ -337,7 +337,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["CLEARNEWORDFLGONDISP"], 0)
         self.assertEqual(data["CLEARNEWORDFLGONPRNT"], 1)
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_edi_and_splits(self, mock_redis):
         """Test POST /glbconfig with EDI and splits fields."""
         token = self._create_auth_token(self.user_id)
@@ -364,7 +364,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["ALLOWSPLITBYSTORE"], 1)
         self.assertEqual(data["MAXIMUMSPLITS"], 4)
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_shutdown_fields(self, mock_redis):
         """Test POST /glbconfig with shutdown/backup fields."""
         token = self._create_auth_token(self.user_id)
@@ -389,7 +389,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["BACKUPCOMMAND"], "/usr/local/bin/backup.sh")
         self.assertEqual(data["BACKUPPROGRAM"], "BackupTool")
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_missing_authorization_header(self):
         """Test GET /glbconfig without Authorization header."""
         response = self.client.get("/glbconfig")
@@ -399,7 +399,7 @@ class GlobalConfigTestCase(unittest.TestCase):
     # Targeted tests for uncovered lines
     # ------------------------------------------------------------------
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_malformed_authorization_header(self, mock_redis):
         """Covers line 23: auth header with != 2 parts triggers 401."""
         token = self._create_auth_token(self.user_id)
@@ -415,7 +415,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("invalid", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_expired_session(self, mock_redis):
         """Covers line 29: Redis returns None → session expired on GET."""
         token = self._create_auth_token(self.user_id)
@@ -429,7 +429,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("expired", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_post_invalid_json_in_redis_session(self, mock_redis):
         """Covers lines 33-34: Redis returns non-JSON → invalid session data."""
         token = self._create_auth_token(self.user_id)
@@ -445,7 +445,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("invalid session", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_token_mismatch(self, mock_redis):
         """Covers line 37: cached token != request token on GET."""
         token = self._create_auth_token(self.user_id)
@@ -459,7 +459,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("expired", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.redis_client")
     def test_get_global_config_not_found_404(self, mock_redis):
         """Covers lines 103-104: GET returns 404 when no config exists."""
         token = self._create_auth_token(self.user_id)
@@ -473,8 +473,8 @@ class GlobalConfigTestCase(unittest.TestCase):
         data = json.loads(response.data)
         self.assertIn("not found", data["message"].lower())
 
-    @patch("config.resources.global_config.redis_client")
-    @patch("config.resources.global_config.db")
+    @patch("config_service.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.db")
     def test_post_sqlalchemy_error(self, mock_db, mock_redis):
         """Covers lines 76-79: SQLAlchemyError during commit → 500."""
         token = self._create_auth_token(self.user_id)
@@ -496,8 +496,8 @@ class GlobalConfigTestCase(unittest.TestCase):
             )
         self.assertEqual(response.status_code, 500)
 
-    @patch("config.resources.global_config.redis_client")
-    @patch("config.resources.global_config.db")
+    @patch("config_service.resources.global_config.redis_client")
+    @patch("config_service.resources.global_config.db")
     def test_post_integrity_error(self, mock_db, mock_redis):
         """Covers lines 73-75: IntegrityError during commit → 400."""
         token = self._create_auth_token(self.user_id)

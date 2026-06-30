@@ -1,4 +1,4 @@
-from main import create_app
+from config_service.main import create_app
 
 app = create_app()
 
