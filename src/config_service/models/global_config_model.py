@@ -1,4 +1,4 @@
-from config.extentions import db
+from config_service.extentions import db
 
 
 class GlobalConfigModel(db.Model):

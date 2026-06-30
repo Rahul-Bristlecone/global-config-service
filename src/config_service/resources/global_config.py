@@ -5,9 +5,9 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 from flask_smorest import Blueprint, abort
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
-from config.extentions import db, redis_client
-from config.models.global_config_model import GlobalConfigModel
-from config.schemas.global_config_schema import GlobalConfigSchema
+from config_service.extentions import db, redis_client
+from config_service.models.global_config_model import GlobalConfigModel
+from config_service.schemas.global_config_schema import GlobalConfigSchema
 
 # Create blueprint for Global Config
 blp = Blueprint("global_config", __name__, description="Operations on global configuration")

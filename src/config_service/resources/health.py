@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
-from config.extentions.db import db
-from config.extentions.redis_client import redis_client
+from config_service.extentions.db import db
+from config_service.extentions.redis_client import redis_client
 
 health_bp = Blueprint("health", __name__, description="Health check endpoints")
 
