@@ -389,7 +389,6 @@ class GlobalConfigTestCase(unittest.TestCase):
         self.assertEqual(data["BACKUPCOMMAND"], "/usr/local/bin/backup.sh")
         self.assertEqual(data["BACKUPPROGRAM"], "BackupTool")
 
-    @patch("config_service.resources.global_config.redis_client")
     def test_get_missing_authorization_header(self):
         """Test GET /glbconfig without Authorization header."""
         response = self.client.get("/glbconfig")
@@ -484,7 +483,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         mock_db.session.rollback.return_value = None
 
         # Also patch the query to return None so the create branch is hit
-        with patch("config.resources.global_config.GlobalConfigModel") as mock_model:
+        with patch("config_service.resources.global_config.GlobalConfigModel") as mock_model:
             mock_model.query.filter_by.return_value.first.return_value = None
             mock_model.return_value = MagicMock()
 
@@ -506,7 +505,7 @@ class GlobalConfigTestCase(unittest.TestCase):
         mock_db.session.commit.side_effect = IntegrityError("stmt", "params", Exception("orig"))
         mock_db.session.rollback.return_value = None
 
-        with patch("config.resources.global_config.GlobalConfigModel") as mock_model:
+        with patch("config_service.resources.global_config.GlobalConfigModel") as mock_model:
             mock_model.query.filter_by.return_value.first.return_value = None
             mock_model.return_value = MagicMock()
 
