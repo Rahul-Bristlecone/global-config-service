@@ -2,26 +2,14 @@ import unittest
 import json
 from unittest.mock import patch, MagicMock
 from flask import Flask
-from flask_jwt_extended import create_access_token
-
-from config.extentions import db
-from config.models.global_config_model import GlobalConfigModel
-from config.schemas.global_config_schema import GlobalConfigSchema
-from config.resources.global_config import blp
-
-
-import unittest
-import json
-from unittest.mock import patch, MagicMock
-from flask import Flask
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_smorest import Api
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError
 
-from config.extentions import db
-from config.models.global_config_model import GlobalConfigModel
-from config.schemas.global_config_schema import GlobalConfigSchema
-from config.resources.global_config import blp
+from config_service.extentions import db
+from config_service.models.global_config_model import GlobalConfigModel
+from config_service.schemas.global_config_schema import GlobalConfigSchema
+from config_service.resources.global_config import blp
 
 
 class GlobalConfigTestCase(unittest.TestCase):
