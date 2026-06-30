@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 COPY pyproject.toml README.md ./
 COPY src/ ./src
 
-RUN pip install --upgrade pip setuptools wheels \
+RUN pip install --upgrade pip setuptools wheel \
     && pip wheel --no-build-isolation --wheel-dir=/app/wheels .
 
 # ********* Stage 2: Final stage - Runtime environment **********
